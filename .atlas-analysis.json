@@ -1,0 +1,45 @@
+{
+  "projectType": "frontend",
+  "projectName": "PPS Proyecto JMMR",
+  "projectDescription": "A simple authentication frontend with login and registration forms built with HTML and Tailwind CSS",
+  "theme": "palm",
+  "primaryColor": "#3B82F6",
+  "lightColor": "#60A5FA",
+  "darkColor": "#2563EB",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "introduction",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Components",
+        "pages": [
+          "components/login",
+          "components/registro"
+        ]
+      },
+      {
+        "group": "Development",
+        "pages": [
+          "guides/setup",
+          "guides/styling",
+          "guides/customization"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Login form with email and password authentication",
+    "Registration form with user details collection",
+    "Responsive design using Tailwind CSS",
+    "Clean and modern UI components"
+  ],
+  "publicApiSurface": [
+    "login.html - User login interface",
+    "registro.html - User registration interface"
+  ]
+}
