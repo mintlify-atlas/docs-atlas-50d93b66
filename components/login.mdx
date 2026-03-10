@@ -1,0 +1,258 @@
+---
+title: "Login Component"
+description: "Documentation for the login form component with email and password authentication"
+---
+
+# Login Component
+
+The login component provides a clean, responsive authentication interface for users to access the application. It features a centered card design with email and password input fields.
+
+## Overview
+
+The login page is built with HTML5 and styled using Tailwind CSS via CDN. It implements a POST form with two main input fields and includes navigation to the registration page.
+
+<Tabs>
+  <Tab title="Complete Structure">
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página de Login</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-3xl font-bold mb-6 text-center">Iniciar Sesión</h1>
+            
+            <form action="#" method="POST" class="space-y-4">
+                <!-- Correo -->
+                <div>
+                    <label for="email" class="block text-gray-700 mb-1">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Contraseña -->
+                <div>
+                    <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Botón Login -->
+                <button type="submit"
+                        class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <!-- Enlaces adicionales -->
+            <div class="mt-4 text-center space-x-4">
+                <a href="registro.html" class="text-blue-500 hover:underline">Registrarse</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    ```
+  </Tab>
+
+  <Tab title="Form Fields">
+    The login form contains two input fields:
+
+    ### Email Field
+    ```html
+    <div>
+        <label for="email" class="block text-gray-700 mb-1">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `email` - Provides built-in email validation
+    - **ID/Name:** `email` - Used for form submission
+    - **Placeholder:** "ejemplo@correo.com" - Guides user input format
+    - **Required:** Not explicitly set, but email type provides format validation
+
+    ### Password Field
+    ```html
+    <div>
+        <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `password` - Masks input for security
+    - **ID/Name:** `password` - Used for form submission
+    - **Placeholder:** "Ingresa tu contraseña" - Prompts user action
+  </Tab>
+
+  <Tab title="Styling & Layout">
+    ## Layout Structure
+
+    ### Body Container
+    ```html
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    ```
+
+    **Classes Explained:**
+    - `bg-gray-100` - Light gray background color
+    - `flex` - Enables flexbox layout
+    - `items-center` - Vertically centers content
+    - `justify-center` - Horizontally centers content
+    - `min-h-screen` - Ensures full viewport height (100vh)
+
+    ### Form Card
+    ```html
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    ```
+
+    **Classes Explained:**
+    - `bg-white` - White background for the card
+    - `p-8` - Padding of 2rem (32px) on all sides
+    - `rounded-lg` - Large border radius for rounded corners
+    - `shadow-lg` - Large box shadow for depth
+    - `w-full` - Full width within container
+    - `max-w-md` - Maximum width of 28rem (448px)
+
+    ### Input Fields Styling
+    ```css
+    w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500
+    ```
+
+    **Classes Explained:**
+    - `w-full` - Full width of parent container
+    - `px-4` - Horizontal padding of 1rem (16px)
+    - `py-2` - Vertical padding of 0.5rem (8px)
+    - `border` - Default gray border
+    - `rounded-lg` - Rounded corners
+    - `focus:outline-none` - Removes default browser outline
+    - `focus:ring-2` - Adds 2px ring on focus
+    - `focus:ring-blue-500` - Blue ring color matching theme
+
+    ### Submit Button
+    ```html
+    <button type="submit"
+            class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+    ```
+
+    **Classes Explained:**
+    - `w-full` - Full width button
+    - `bg-blue-500` - Blue background color
+    - `text-white` - White text color
+    - `py-2` - Vertical padding of 0.5rem (8px)
+    - `rounded-lg` - Rounded corners
+    - `hover:bg-blue-600` - Darker blue on hover
+    - `transition-colors` - Smooth color transition animation
+  </Tab>
+
+  <Tab title="Responsive Design">
+    ## Responsive Behavior
+
+    The login component is fully responsive and adapts to different screen sizes:
+
+    ### Mobile Devices (< 448px)
+    - Form card takes full width (`w-full`)
+    - Maintains padding for touch-friendly spacing
+    - Centered layout with flexbox
+    - Full-width inputs for easy mobile input
+
+    ### Tablet & Desktop (≥ 448px)
+    - Form card constrained to `max-w-md` (448px)
+    - Maintains centered position
+    - Optimal reading width for form labels
+
+    ### Key Responsive Features
+
+    ```html
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    ```
+    - Ensures proper scaling on mobile devices
+
+    ```css
+    min-h-screen    /* Adapts to viewport height */
+    w-full          /* Fluid width */
+    max-w-md        /* Constrains maximum width */
+    ```
+
+    ### Accessibility
+    - Proper `<label>` elements associated with inputs via `for` attribute
+    - Semantic HTML5 input types (`email`, `password`)
+    - Focus states with visible ring indicators
+    - Touch-friendly button and input sizes
+  </Tab>
+</Tabs>
+
+## Form Submission
+
+<Note>
+  The form is currently configured with `action="#"` and `method="POST"`. In a production environment, you should replace the `#` with your actual authentication endpoint.
+</Note>
+
+```html
+<form action="#" method="POST" class="space-y-4">
+```
+
+**Attributes:**
+- `action="#"` - Placeholder for backend endpoint URL
+- `method="POST"` - HTTP POST method for secure credential transmission
+- `class="space-y-4"` - Vertical spacing of 1rem (16px) between form elements
+
+## Navigation
+
+The login page includes a link to the registration page:
+
+```html
+<div class="mt-4 text-center space-x-4">
+    <a href="registro.html" class="text-blue-500 hover:underline">Registrarse</a>
+</div>
+```
+
+**Classes:**
+- `mt-4` - Top margin of 1rem (16px)
+- `text-center` - Centered text alignment
+- `space-x-4` - Horizontal spacing between links
+- `text-blue-500` - Blue text color for links
+- `hover:underline` - Underline on hover for better UX
+
+## Design Principles
+
+<Warning>
+  This implementation uses Tailwind CSS via CDN. For production, consider using a build process to optimize CSS delivery and reduce bundle size.
+</Warning>
+
+### Color Scheme
+- **Primary:** Blue (`blue-500`, `blue-600`) for buttons and links
+- **Background:** Light gray (`gray-100`) for page, white for card
+- **Text:** Dark gray (`gray-700`) for labels
+- **Focus:** Blue ring (`ring-blue-500`) for interactive elements
+
+### Spacing System
+- Consistent padding and margins using Tailwind's spacing scale
+- Form spacing: `space-y-4` (1rem between fields)
+- Card padding: `p-8` (2rem)
+- Input padding: `px-4 py-2` (1rem horizontal, 0.5rem vertical)
+
+## Browser Compatibility
+
+The login component is compatible with all modern browsers that support:
+- HTML5 input types (`email`, `password`)
+- CSS Flexbox
+- Tailwind CSS (via CDN)
+
+**Supported Browsers:**
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## File Location
+
+```
+frontend/login.html
+```

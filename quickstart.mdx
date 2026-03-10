@@ -1,80 +1,252 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: 'Quickstart Guide'
+description: 'Get started with the PPS Proyecto JMMR authentication system in minutes'
 ---
 
-## Get started in three steps
+# Quickstart Guide
 
-Get your documentation site running locally and make your first customization.
+This guide will help you set up and use the authentication frontend for PPS Proyecto JMMR. The system includes a login page and a registration page built with HTML and Tailwind CSS.
 
-### Step 1: Set up your local environment
+<Note>
+  This is a frontend-only authentication system. The forms are currently configured with `action="#"` and will need to be connected to a backend API for full functionality.
+</Note>
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+## What You'll Build
 
-### Step 2: Deploy your changes
+By following this guide, you'll have:
+- A fully styled login page with email and password fields
+- A registration page with name, email, phone, and password fields
+- Responsive forms centered on the screen with modern styling
+- Navigation between login and registration pages
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+<Steps>
+  <Step title="Open the Project Files">
+    Navigate to the frontend directory where the HTML files are located:
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    ```bash
+    cd ~/workspace/source/frontend/
+    ```
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    You'll find two main files:
+    - `login.html` - The login page
+    - `registro.html` - The registration page
+  </Step>
 
-### Step 3: Go live
+  <Step title="Open the Login Page">
+    Open `login.html` in your web browser. You can do this by:
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    ```bash
+    # Option 1: Using a local file path
+    open login.html  # macOS
+    xdg-open login.html  # Linux
+    start login.html  # Windows
 
-## Next steps
+    # Option 2: Using a local web server (recommended)
+    python3 -m http.server 8000
+    # Then visit: http://localhost:8000/login.html
+    ```
 
-Now that you have your docs running, explore these key features:
+    ### What You'll See
+
+    The login page displays a centered white card with:
+    - **Title**: "Iniciar Sesión" (Login)
+    - **Email Field**: For entering your email address (e.g., ejemplo@correo.com)
+    - **Password Field**: For entering your password
+    - **Login Button**: Blue button with hover effect
+    - **Registration Link**: Link to the registration page
+
+    The page uses a clean, modern design with:
+    - Gray background (`bg-gray-100`)
+    - White form container with shadow and rounded corners
+    - Blue color scheme for the login button and focus states
+  </Step>
+
+  <Step title="Test the Login Form">
+    The login form includes the following fields:
+
+    <CodeGroup>
+    ```html Email Field
+    <input type="email" 
+           id="email" 
+           name="email" 
+           placeholder="ejemplo@correo.com"
+           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    ```
+
+    ```html Password Field
+    <input type="password" 
+           id="password" 
+           name="password" 
+           placeholder="Ingresa tu contraseña"
+           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    ```
+    </CodeGroup>
+
+    Try interacting with the form:
+    1. Click on the email field - you'll see a blue focus ring appear
+    2. Enter a test email address
+    3. Click on the password field - notice the same blue focus ring
+    4. Enter a test password
+    5. Hover over the "Iniciar Sesión" button - it changes from `bg-blue-500` to `bg-blue-600`
+
+    <Note>
+      The form currently submits to `action="#"`. You'll need to update this to point to your backend authentication endpoint.
+    </Note>
+  </Step>
+
+  <Step title="Navigate to Registration">
+    Click on the "Registrarse" (Register) link at the bottom of the login form. This will take you to `registro.html`.
+
+    ### Registration Page Features
+
+    The registration page has a similar design but uses a green color scheme and includes more fields:
+
+    | Field | Type | Placeholder | Description |
+    |-------|------|-------------|-------------|
+    | **Nombre completo** | text | "Ingresa tu nombre" | User's full name |
+    | **Correo electrónico** | email | "ejemplo@correo.com" | User's email address |
+    | **Número de teléfono** | tel | "123 456 789" | User's phone number |
+    | **Contraseña** | password | "Ingresa tu contraseña" | User's password |
+
+    The registration button uses green styling (`bg-green-500`) instead of blue, and all focus rings are green (`focus:ring-green-500`) to differentiate it from the login page.
+  </Step>
+
+  <Step title="Test the Registration Form">
+    Try filling out the registration form:
+
+    ```html Complete Registration Form Structure
+    <form action="#" method="POST" class="space-y-4">
+      <!-- Name field -->
+      <input type="text" id="name" name="name" placeholder="Ingresa tu nombre">
+      
+      <!-- Email field -->
+      <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
+      
+      <!-- Phone field -->
+      <input type="tel" id="phone" name="phone" placeholder="123 456 789">
+      
+      <!-- Password field -->
+      <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña">
+      
+      <!-- Submit button -->
+      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">
+        Registrarse
+      </button>
+    </form>
+    ```
+
+    Notice:
+    - All fields have consistent styling with `w-full px-4 py-2 border rounded-lg`
+    - The green theme creates visual distinction from the login page
+    - The "¿Ya tienes cuenta? Inicia sesión" link navigates back to `login.html`
+  </Step>
+
+  <Step title="Customize for Your Backend">
+    To connect these forms to your backend, update the form actions:
+
+    <CodeGroup>
+    ```html login.html
+    <!-- Change from: -->
+    <form action="#" method="POST" class="space-y-4">
+
+    <!-- To: -->
+    <form action="https://your-api.com/auth/login" method="POST" class="space-y-4">
+    ```
+
+    ```html registro.html
+    <!-- Change from: -->
+    <form action="#" method="POST" class="space-y-4">
+
+    <!-- To: -->
+    <form action="https://your-api.com/auth/register" method="POST" class="space-y-4">
+    ```
+    </CodeGroup>
+
+    Or use JavaScript to handle form submissions:
+
+    ```javascript Form Handler Example
+    document.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      try {
+        const response = await fetch('https://your-api.com/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          // Handle successful login
+          console.log('Login successful:', result);
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+      }
+    });
+    ```
+  </Step>
+</Steps>
+
+## Key Features
+
+### Responsive Design
+Both pages use Tailwind's responsive utilities to ensure they work on all screen sizes:
+- `min-h-screen` - Full viewport height
+- `flex items-center justify-center` - Centered content
+- `w-full max-w-md` - Responsive width with maximum constraint
+
+### Consistent Styling
+All form elements share common classes:
+```css
+w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2
+```
+
+### Color-Coded Pages
+- **Login**: Blue theme (`focus:ring-blue-500`, `bg-blue-500`)
+- **Registration**: Green theme (`focus:ring-green-500`, `bg-green-500`)
+
+### Accessibility
+- Proper `<label>` elements with `for` attributes
+- Semantic HTML with appropriate input types
+- Spanish language set with `lang="es"`
+- Placeholder text for user guidance
+
+## Next Steps
 
 <CardGroup cols={2}>
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
+<Card title="Connect to Backend" icon="server">
+  Learn how to integrate these forms with your backend authentication API
 </Card>
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
+<Card title="Add Validation" icon="shield-check">
+  Implement client-side form validation for better UX
 </Card>
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
+<Card title="Customize Styling" icon="palette">
+  Modify the Tailwind classes to match your brand
 </Card>
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
+<Card title="Add JavaScript" icon="code">
+  Enhance forms with dynamic behavior and AJAX submissions
 </Card>
 
 </CardGroup>
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+## Common Issues
+
+### Tailwind CSS Not Loading
+If styles aren't appearing, verify the CDN link is present in the `<head>`:
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+```
+
+### Form Not Submitting
+Remember that both forms have `action="#"` by default. Update this to your backend endpoint or add JavaScript handlers.
+
+### Navigation Not Working
+Ensure both `login.html` and `registro.html` are in the same directory for the relative links to work correctly.

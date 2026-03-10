@@ -1,0 +1,683 @@
+---
+title: 'Customization Guide'
+description: 'Customize colors, forms, validation, and integrate with a backend API'
+---
+
+## Overview
+
+This guide shows you how to customize the authentication forms to match your brand, add validation, and connect to a real backend. All examples are based on the actual implementation in `login.html` and `registro.html`.
+
+## Customizing Colors
+
+### Changing Primary Colors
+
+To change the color scheme, update the Tailwind color classes:
+
+<Steps>
+  <Step title="Choose your color">
+    Tailwind provides colors in shades from 50 (lightest) to 900 (darkest). Common choices:
+    - `purple-500` / `purple-600`
+    - `indigo-500` / `indigo-600`
+    - `pink-500` / `pink-600`
+    - `red-500` / `red-600`
+  </Step>
+
+  <Step title="Update button colors">
+    Find the submit button (login.html:31) and change the background:
+    
+    ```html
+    <!-- Original (blue) -->
+    <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+    
+    <!-- Updated (purple) -->
+    <button class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
+    ```
+  </Step>
+
+  <Step title="Update focus rings">
+    Change input focus colors (login.html:19,26):
+    
+    ```html
+    <!-- Original -->
+    <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    
+    <!-- Updated -->
+    <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" />
+    ```
+  </Step>
+
+  <Step title="Update links">
+    Update link colors (login.html:38):
+    
+    ```html
+    <!-- Original -->
+    <a href="registro.html" class="text-blue-500 hover:underline">Registrarse</a>
+    
+    <!-- Updated -->
+    <a href="registro.html" class="text-purple-500 hover:underline">Registrarse</a>
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+Use find-and-replace to change all occurrences at once:
+- Replace `blue-500` with your color
+- Replace `blue-600` with your hover color
+</Tip>
+
+### Using Custom Colors
+
+To use brand-specific colors not in Tailwind's palette, configure the CDN:
+
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#f0f9ff',
+            100: '#e0f2fe',
+            500: '#0ea5e9',
+            600: '#0284c7',
+          }
+        }
+      }
+    }
+  }
+</script>
+```
+
+Then use `brand-500` and `brand-600` in your classes:
+
+```html
+<button class="bg-brand-500 hover:bg-brand-600">
+```
+
+### Background Customization
+
+Change the page background (login.html:10):
+
+```html
+<!-- Light gray (current) -->
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<!-- White -->
+<body class="bg-white flex items-center justify-center min-h-screen">
+
+<!-- Gradient -->
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center min-h-screen">
+
+<!-- Image -->
+<body class="bg-gray-900 flex items-center justify-center min-h-screen" 
+      style="background-image: url('/path/to/image.jpg'); background-size: cover;">
+```
+
+## Modifying Form Fields
+
+### Adding New Fields
+
+To add a field, copy the existing field pattern (login.html:16-20):
+
+```html
+<!-- Add a "Remember me" checkbox -->
+<div class="flex items-center">
+  <input type="checkbox" id="remember" name="remember" 
+         class="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500">
+  <label for="remember" class="ml-2 text-sm text-gray-700">
+    Recordarme
+  </label>
+</div>
+
+<!-- Add a company field to registration -->
+<div>
+  <label for="company" class="block text-gray-700 mb-1">Empresa</label>
+  <input type="text" id="company" name="company" 
+         placeholder="Nombre de tu empresa"
+         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+</div>
+```
+
+### Removing Fields
+
+Simply delete the entire `<div>` containing the field you want to remove (registro.html:30-34 for phone):
+
+```html
+<!-- Remove this block to remove the phone field -->
+<div>
+  <label for="phone" class="block text-gray-700 mb-1">Número de teléfono</label>
+  <input type="tel" id="phone" name="phone" placeholder="123 456 789"
+         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+</div>
+```
+
+### Changing Field Order
+
+Cut and paste entire field `<div>` blocks to reorder them within the `<form>` element.
+
+## Adding Form Validation
+
+### HTML5 Validation (Simple)
+
+Add validation attributes to inputs:
+
+```html
+<!-- Required field -->
+<input type="email" id="email" name="email" required
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+<!-- Email format validation -->
+<input type="email" id="email" name="email" required
+       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+       title="Please enter a valid email address"
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+<!-- Password minimum length -->
+<input type="password" id="password" name="password" required minlength="8"
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+<!-- Phone format -->
+<input type="tel" id="phone" name="phone" 
+       pattern="[0-9]{3} [0-9]{3} [0-9]{3}"
+       title="Format: 123 456 789"
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+```
+
+### JavaScript Validation (Advanced)
+
+Add custom validation logic before the closing `</body>` tag:
+
+```html
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  
+  // Clear previous errors
+  document.querySelectorAll('.error-message').forEach(el => el.remove());
+  document.querySelectorAll('.border-red-500').forEach(el => {
+    el.classList.remove('border-red-500');
+    el.classList.add('border');
+  });
+  
+  let isValid = true;
+  
+  // Email validation
+  if (!email || !email.includes('@')) {
+    showError('email', 'Por favor ingresa un correo electrónico válido');
+    isValid = false;
+  }
+  
+  // Password validation
+  if (!password || password.length < 8) {
+    showError('password', 'La contraseña debe tener al menos 8 caracteres');
+    isValid = false;
+  }
+  
+  // Submit if valid
+  if (isValid) {
+    console.log('Form is valid, submitting...');
+    // Add your submission logic here
+  }
+});
+
+function showError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  field.classList.remove('border');
+  field.classList.add('border-red-500');
+  
+  const error = document.createElement('p');
+  error.className = 'error-message text-red-500 text-sm mt-1';
+  error.textContent = message;
+  field.parentElement.appendChild(error);
+}
+</script>
+```
+
+### Real-time Validation
+
+Validate as the user types:
+
+```html
+<script>
+const passwordInput = document.getElementById('password');
+const emailInput = document.getElementById('email');
+
+// Password strength indicator
+passwordInput.addEventListener('input', function() {
+  const strength = calculatePasswordStrength(this.value);
+  const indicator = document.getElementById('password-strength');
+  
+  if (strength === 'weak') {
+    indicator.textContent = 'Débil';
+    indicator.className = 'text-red-500 text-sm mt-1';
+  } else if (strength === 'medium') {
+    indicator.textContent = 'Media';
+    indicator.className = 'text-yellow-500 text-sm mt-1';
+  } else if (strength === 'strong') {
+    indicator.textContent = 'Fuerte';
+    indicator.className = 'text-green-500 text-sm mt-1';
+  }
+});
+
+function calculatePasswordStrength(password) {
+  if (password.length < 8) return 'weak';
+  if (password.length < 12) return 'medium';
+  return 'strong';
+}
+
+// Email validation
+emailInput.addEventListener('blur', function() {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(this.value)) {
+    this.classList.add('border-red-500');
+  } else {
+    this.classList.remove('border-red-500');
+  }
+});
+</script>
+
+<!-- Add this after the password input -->
+<div id="password-strength"></div>
+```
+
+## Backend Integration
+
+### Connecting to an API
+
+Replace the form submission with an API call:
+
+<CodeGroup>
+```html Login API Integration
+<script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const button = this.querySelector('button[type="submit"]');
+  
+  // Disable button and show loading state
+  button.disabled = true;
+  button.textContent = 'Iniciando sesión...';
+  
+  try {
+    const response = await fetch('https://api.example.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Store token
+      localStorage.setItem('authToken', data.token);
+      
+      // Redirect to dashboard
+      window.location.href = '/dashboard.html';
+    } else {
+      // Show error message
+      showError('general', data.message || 'Error al iniciar sesión');
+      button.disabled = false;
+      button.textContent = 'Iniciar Sesión';
+    }
+  } catch (error) {
+    showError('general', 'Error de conexión. Por favor intenta de nuevo.');
+    button.disabled = false;
+    button.textContent = 'Iniciar Sesión';
+  }
+});
+
+function showError(type, message) {
+  const form = document.querySelector('form');
+  let errorDiv = document.getElementById('error-message');
+  
+  if (!errorDiv) {
+    errorDiv = document.createElement('div');
+    errorDiv.id = 'error-message';
+    errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4';
+    form.insertBefore(errorDiv, form.firstChild);
+  }
+  
+  errorDiv.textContent = message;
+}
+</script>
+```
+
+```html Registration API Integration
+<script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const formData = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    password: document.getElementById('password').value,
+  };
+  
+  const button = this.querySelector('button[type="submit"]');
+  button.disabled = true;
+  button.textContent = 'Creando cuenta...';
+  
+  try {
+    const response = await fetch('https://api.example.com/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok) {
+      // Show success message
+      showSuccess('Cuenta creada exitosamente. Redirigiendo...');
+      
+      // Store token if provided
+      if (data.token) {
+        localStorage.setItem('authToken', data.token);
+      }
+      
+      // Redirect to login or dashboard
+      setTimeout(() => {
+        window.location.href = data.token ? '/dashboard.html' : '/login.html';
+      }, 2000);
+    } else {
+      showError(data.message || 'Error al crear la cuenta');
+      button.disabled = false;
+      button.textContent = 'Registrarse';
+    }
+  } catch (error) {
+    showError('Error de conexión. Por favor intenta de nuevo.');
+    button.disabled = false;
+    button.textContent = 'Registrarse';
+  }
+});
+</script>
+```
+</CodeGroup>
+
+### Environment Configuration
+
+Create a config file to manage API endpoints:
+
+```html
+<script>
+// config.js - Create this file
+const CONFIG = {
+  API_BASE_URL: window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/api'
+    : 'https://api.production.com',
+  TOKEN_KEY: 'authToken',
+};
+</script>
+
+<!-- Include in your HTML -->
+<script src="config.js"></script>
+```
+
+Then use `CONFIG.API_BASE_URL` in your fetch calls:
+
+```javascript
+const response = await fetch(`${CONFIG.API_BASE_URL}/auth/login`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password }),
+});
+```
+
+### Authentication Flow
+
+Implement protected routes:
+
+```html
+<!-- Add to dashboard.html or any protected page -->
+<script>
+// Check authentication
+const token = localStorage.getItem('authToken');
+
+if (!token) {
+  // Redirect to login if not authenticated
+  window.location.href = '/login.html';
+} else {
+  // Verify token is valid
+  fetch('https://api.example.com/auth/verify', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      localStorage.removeItem('authToken');
+      window.location.href = '/login.html';
+    }
+  });
+}
+
+// Logout function
+function logout() {
+  localStorage.removeItem('authToken');
+  window.location.href = '/login.html';
+}
+</script>
+```
+
+## Advanced Customization
+
+### Adding Social Login
+
+```html
+<!-- Add after the form -->
+<div class="mt-6">
+  <div class="relative">
+    <div class="absolute inset-0 flex items-center">
+      <div class="w-full border-t border-gray-300"></div>
+    </div>
+    <div class="relative flex justify-center text-sm">
+      <span class="px-2 bg-white text-gray-500">O continúa con</span>
+    </div>
+  </div>
+  
+  <div class="mt-6 grid grid-cols-2 gap-3">
+    <button onclick="loginWithGoogle()" 
+            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+      <svg class="w-5 h-5" viewBox="0 0 24 24">
+        <!-- Google icon SVG -->
+      </svg>
+      <span class="ml-2">Google</span>
+    </button>
+    
+    <button onclick="loginWithGithub()" 
+            class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+      <svg class="w-5 h-5" viewBox="0 0 24 24">
+        <!-- GitHub icon SVG -->
+      </svg>
+      <span class="ml-2">GitHub</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function loginWithGoogle() {
+  window.location.href = 'https://api.example.com/auth/google';
+}
+
+function loginWithGithub() {
+  window.location.href = 'https://api.example.com/auth/github';
+}
+</script>
+```
+
+### Multi-step Registration
+
+Convert registro.html into a multi-step form:
+
+```html
+<div id="step-1" class="step">
+  <!-- Personal info: name, email -->
+</div>
+
+<div id="step-2" class="step hidden">
+  <!-- Account info: password, phone -->
+</div>
+
+<div id="step-3" class="step hidden">
+  <!-- Confirmation -->
+</div>
+
+<script>
+let currentStep = 1;
+
+function nextStep() {
+  document.getElementById(`step-${currentStep}`).classList.add('hidden');
+  currentStep++;
+  document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+}
+
+function prevStep() {
+  document.getElementById(`step-${currentStep}`).classList.add('hidden');
+  currentStep--;
+  document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+}
+</script>
+```
+
+### Password Toggle Visibility
+
+```html
+<div class="relative">
+  <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
+  <input type="password" id="password" name="password" 
+         placeholder="Ingresa tu contraseña"
+         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <button type="button" onclick="togglePassword()" 
+          class="absolute right-3 top-9 text-gray-500 hover:text-gray-700">
+    <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+function togglePassword() {
+  const passwordField = document.getElementById('password');
+  const type = passwordField.type === 'password' ? 'text' : 'password';
+  passwordField.type = type;
+}
+</script>
+```
+
+## Production Optimization
+
+### Moving from CDN to Build Process
+
+For production, use Tailwind CLI instead of CDN:
+
+<Steps>
+  <Step title="Install Tailwind">
+    ```bash
+    npm init -y
+    npm install -D tailwindcss
+    npx tailwindcss init
+    ```
+  </Step>
+
+  <Step title="Configure Tailwind">
+    Edit `tailwind.config.js`:
+    
+    ```javascript
+    module.exports = {
+      content: ['./*.html'],
+      theme: {
+        extend: {},
+      },
+      plugins: [],
+    }
+    ```
+  </Step>
+
+  <Step title="Create input CSS">
+    Create `src/input.css`:
+    
+    ```css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    ```
+  </Step>
+
+  <Step title="Build CSS">
+    ```bash
+    npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify
+    ```
+    
+    Update HTML:
+    ```html
+    <link href="./dist/output.css" rel="stylesheet">
+    ```
+  </Step>
+</Steps>
+
+<Note>
+This reduces CSS file size from ~3MB (CDN) to ~5-10KB (built and purged), significantly improving load times.
+</Note>
+
+## Best Practices
+
+### Security
+
+- Never store sensitive data in `localStorage` without encryption
+- Always use HTTPS for API calls in production
+- Validate inputs on both client and server
+- Implement rate limiting for login attempts
+- Use secure password requirements (min 8 chars, mixed case, numbers)
+
+### User Experience
+
+- Show loading states during async operations
+- Provide clear error messages
+- Disable submit button during submission
+- Use client-side validation for immediate feedback
+- Add success messages after actions complete
+
+### Performance
+
+- Minimize JavaScript bundle size
+- Use Tailwind build process for production
+- Lazy load non-critical resources
+- Optimize images and icons
+
+### Accessibility
+
+- Keep semantic HTML (`<label>`, `<input>`, `<button>`)
+- Ensure keyboard navigation works
+- Maintain color contrast ratios
+- Add ARIA labels where needed
+- Test with screen readers
+
+## Next Steps
+
+You now have the tools to fully customize the authentication forms. Consider:
+
+- Setting up a backend API (Node.js, Python, PHP)
+- Adding password reset functionality
+- Implementing email verification
+- Creating a dashboard for authenticated users
+- Adding role-based access control
+
+For more information:
+- [Setup Guide](/guides/setup) - Development environment
+- [Styling Guide](/guides/styling) - Tailwind CSS usage
+- [Tailwind Documentation](https://tailwindcss.com) - Full utility reference

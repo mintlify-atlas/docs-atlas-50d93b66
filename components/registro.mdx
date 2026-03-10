@@ -1,0 +1,378 @@
+---
+title: "Registration Component"
+description: "Documentation for the registration form component with name, email, phone, and password fields"
+---
+
+# Registration Component
+
+The registration component provides a comprehensive user signup interface with four input fields: name, email, phone number, and password. It features a centered card design with green accent colors to differentiate from the login page.
+
+## Overview
+
+The registration page is built with HTML5 and styled using Tailwind CSS via CDN. It implements a POST form with four main input fields and includes navigation back to the login page.
+
+<Tabs>
+  <Tab title="Complete Structure">
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-3xl font-bold mb-6 text-center">Crear Cuenta</h1>
+            
+            <form action="#" method="POST" class="space-y-4">
+                <!-- Nombre -->
+                <div>
+                    <label for="name" class="block text-gray-700 mb-1">Nombre completo</label>
+                    <input type="text" id="name" name="name" placeholder="Ingresa tu nombre"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <!-- Correo -->
+                <div>
+                    <label for="email" class="block text-gray-700 mb-1">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <!-- Teléfono -->
+                <div>
+                    <label for="phone" class="block text-gray-700 mb-1">Número de teléfono</label>
+                    <input type="tel" id="phone" name="phone" placeholder="123 456 789"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <!-- Contraseña -->
+                <div>
+                    <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+
+                <!-- Botón Registrar -->
+                <button type="submit"
+                        class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    Registrarse
+                </button>
+            </form>
+
+            <p class="mt-4 text-center text-gray-600">
+                ¿Ya tienes cuenta?
+                <a href="login.html" class="text-blue-500 hover:underline">Inicia sesión</a>
+            </p>
+        </div>
+    </body>
+    </html>
+    ```
+  </Tab>
+
+  <Tab title="Form Fields">
+    The registration form contains four input fields:
+
+    ### Name Field
+    ```html
+    <div>
+        <label for="name" class="block text-gray-700 mb-1">Nombre completo</label>
+        <input type="text" id="name" name="name" placeholder="Ingresa tu nombre"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `text` - Standard text input
+    - **ID/Name:** `name` - Used for form submission
+    - **Label:** "Nombre completo" - Full name
+    - **Placeholder:** "Ingresa tu nombre" - Prompts user to enter their name
+
+    ### Email Field
+    ```html
+    <div>
+        <label for="email" class="block text-gray-700 mb-1">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `email` - Provides built-in email validation
+    - **ID/Name:** `email` - Used for form submission
+    - **Label:** "Correo electrónico" - Email address
+    - **Placeholder:** "ejemplo@correo.com" - Guides user input format
+
+    ### Phone Field
+    ```html
+    <div>
+        <label for="phone" class="block text-gray-700 mb-1">Número de teléfono</label>
+        <input type="tel" id="phone" name="phone" placeholder="123 456 789"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `tel` - Optimized for telephone input (triggers numeric keyboard on mobile)
+    - **ID/Name:** `phone` - Used for form submission
+    - **Label:** "Número de teléfono" - Phone number
+    - **Placeholder:** "123 456 789" - Shows expected format
+
+    ### Password Field
+    ```html
+    <div>
+        <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña"
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+    </div>
+    ```
+
+    **Field Details:**
+    - **Type:** `password` - Masks input for security
+    - **ID/Name:** `password` - Used for form submission
+    - **Label:** "Contraseña" - Password
+    - **Placeholder:** "Ingresa tu contraseña" - Prompts user action
+  </Tab>
+
+  <Tab title="Styling & Layout">
+    ## Layout Structure
+
+    ### Body Container
+    ```html
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    ```
+
+    **Classes Explained:**
+    - `bg-gray-100` - Light gray background color
+    - `flex` - Enables flexbox layout
+    - `items-center` - Vertically centers content
+    - `justify-center` - Horizontally centers content
+    - `min-h-screen` - Ensures full viewport height (100vh)
+
+    ### Form Card
+    ```html
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    ```
+
+    **Classes Explained:**
+    - `bg-white` - White background for the card
+    - `p-8` - Padding of 2rem (32px) on all sides
+    - `rounded-lg` - Large border radius for rounded corners
+    - `shadow-lg` - Large box shadow for depth
+    - `w-full` - Full width within container
+    - `max-w-md` - Maximum width of 28rem (448px)
+
+    ### Input Fields Styling
+    ```css
+    w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500
+    ```
+
+    **Classes Explained:**
+    - `w-full` - Full width of parent container
+    - `px-4` - Horizontal padding of 1rem (16px)
+    - `py-2` - Vertical padding of 0.5rem (8px)
+    - `border` - Default gray border
+    - `rounded-lg` - Rounded corners
+    - `focus:outline-none` - Removes default browser outline
+    - `focus:ring-2` - Adds 2px ring on focus
+    - `focus:ring-green-500` - Green ring color matching registration theme
+
+    ### Submit Button
+    ```html
+    <button type="submit"
+            class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+    ```
+
+    **Classes Explained:**
+    - `w-full` - Full width button
+    - `bg-green-500` - Green background color (differentiates from login)
+    - `text-white` - White text color
+    - `py-2` - Vertical padding of 0.5rem (8px)
+    - `rounded-lg` - Rounded corners
+    - `hover:bg-green-600` - Darker green on hover
+    - `transition-colors` - Smooth color transition animation
+
+    ### Navigation Text
+    ```html
+    <p class="mt-4 text-center text-gray-600">
+    ```
+
+    **Classes Explained:**
+    - `mt-4` - Top margin of 1rem (16px)
+    - `text-center` - Centered text alignment
+    - `text-gray-600` - Medium gray for secondary text
+  </Tab>
+
+  <Tab title="Responsive Design">
+    ## Responsive Behavior
+
+    The registration component is fully responsive and adapts to different screen sizes:
+
+    ### Mobile Devices (< 448px)
+    - Form card takes full width (`w-full`)
+    - Maintains padding for touch-friendly spacing
+    - Centered layout with flexbox
+    - Full-width inputs for easy mobile input
+    - `type="tel"` triggers numeric keyboard on mobile devices
+
+    ### Tablet & Desktop (≥ 448px)
+    - Form card constrained to `max-w-md` (448px)
+    - Maintains centered position
+    - Optimal reading width for form labels
+
+    ### Key Responsive Features
+
+    ```html
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    ```
+    - Ensures proper scaling on mobile devices
+
+    ```css
+    min-h-screen    /* Adapts to viewport height */
+    w-full          /* Fluid width */
+    max-w-md        /* Constrains maximum width */
+    space-y-4       /* Consistent vertical spacing */
+    ```
+
+    ### Mobile Optimization
+    - **Tel Input:** The `type="tel"` attribute on the phone field automatically triggers the numeric keyboard on mobile devices, improving user experience
+    - **Touch Targets:** All inputs and buttons have sufficient padding for comfortable touch interaction
+    - **Vertical Scrolling:** The form adapts to smaller screens by allowing vertical scrolling when needed
+
+    ### Accessibility
+    - Proper `<label>` elements associated with inputs via `for` attribute
+    - Semantic HTML5 input types (`text`, `email`, `tel`, `password`)
+    - Focus states with visible ring indicators
+    - Touch-friendly button and input sizes (minimum 44px height)
+    - Clear visual hierarchy with headings and labels
+  </Tab>
+</Tabs>
+
+## Form Submission
+
+<Note>
+  The form is currently configured with `action="#"` and `method="POST"`. In a production environment, you should replace the `#` with your actual registration endpoint and implement proper validation.
+</Note>
+
+```html
+<form action="#" method="POST" class="space-y-4">
+```
+
+**Attributes:**
+- `action="#"` - Placeholder for backend endpoint URL
+- `method="POST"` - HTTP POST method for secure data transmission
+- `class="space-y-4"` - Vertical spacing of 1rem (16px) between form elements
+
+## Validation Considerations
+
+<Warning>
+  This implementation relies on HTML5 browser validation only. For production use, implement both client-side and server-side validation:
+  - Name: Minimum length, character restrictions
+  - Email: Format validation, uniqueness check
+  - Phone: Format validation, optional regional format
+  - Password: Strength requirements (length, complexity)
+</Warning>
+
+### Current HTML5 Validation
+- **Email field:** Browser validates email format automatically
+- **Other fields:** No explicit validation (consider adding `required` attribute)
+
+### Recommended Enhancements
+```html
+<!-- Add required attribute and pattern validation -->
+<input type="email" id="email" name="email" required 
+       placeholder="ejemplo@correo.com"
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+
+<!-- Add password requirements -->
+<input type="password" id="password" name="password" required
+       minlength="8" 
+       placeholder="Ingresa tu contraseña"
+       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+```
+
+## Navigation
+
+The registration page includes a link back to the login page:
+
+```html
+<p class="mt-4 text-center text-gray-600">
+    ¿Ya tienes cuenta?
+    <a href="login.html" class="text-blue-500 hover:underline">Inicia sesión</a>
+</p>
+```
+
+**Features:**
+- Contextual message asking if user already has an account
+- Blue link color for consistency with login page
+- Hover underline for better UX feedback
+
+## Design Principles
+
+### Color Scheme
+- **Primary:** Green (`green-500`, `green-600`) for buttons and focus states
+- **Secondary:** Blue (`blue-500`) for navigation links
+- **Background:** Light gray (`gray-100`) for page, white for card
+- **Text:** Dark gray (`gray-700`) for labels, medium gray (`gray-600`) for secondary text
+
+### Why Green for Registration?
+The green color scheme differentiates the registration page from the login page (which uses blue), providing visual context to users about which page they're on. Green also psychologically suggests "go" or "start," which aligns with creating a new account.
+
+### Spacing System
+- Consistent padding and margins using Tailwind's spacing scale
+- Form spacing: `space-y-4` (1rem between fields)
+- Card padding: `p-8` (2rem)
+- Input padding: `px-4 py-2` (1rem horizontal, 0.5rem vertical)
+- Top margin on navigation: `mt-4` (1rem)
+
+## Browser Compatibility
+
+The registration component is compatible with all modern browsers that support:
+- HTML5 input types (`text`, `email`, `tel`, `password`)
+- CSS Flexbox
+- Tailwind CSS (via CDN)
+
+**Supported Browsers:**
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+**Special Notes:**
+- The `tel` input type is well-supported and provides enhanced mobile experience
+- Focus ring styles work across all modern browsers
+
+## Comparison with Login Component
+
+| Feature | Login | Registration |
+|---------|-------|-------------|
+| **Fields** | 2 (email, password) | 4 (name, email, phone, password) |
+| **Primary Color** | Blue | Green |
+| **Focus Ring** | `ring-blue-500` | `ring-green-500` |
+| **Button Color** | `bg-blue-500` | `bg-green-500` |
+| **Navigation** | Link to registro.html | Link to login.html |
+| **Title** | "Iniciar Sesión" | "Crear Cuenta" |
+
+## File Location
+
+```
+frontend/registro.html
+```
+
+## Integration Notes
+
+When integrating this component with a backend:
+
+1. **Update form action:** Replace `action="#"` with your registration endpoint
+2. **Add CSRF protection:** Include CSRF tokens for security
+3. **Implement validation:** Add JavaScript validation before submission
+4. **Handle errors:** Display validation errors inline near each field
+5. **Success redirect:** Redirect to login or dashboard after successful registration
+6. **Loading states:** Add loading indicator during form submission
+
+<Note>
+  Consider implementing password confirmation by adding a second password field to ensure users enter their intended password correctly.
+</Note>

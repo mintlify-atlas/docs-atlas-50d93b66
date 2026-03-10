@@ -1,0 +1,366 @@
+---
+title: 'Styling Guide'
+description: 'Learn how Tailwind CSS is used to style the authentication forms'
+---
+
+## Tailwind CSS Overview
+
+The PPS Proyecto JMMR frontend uses **Tailwind CSS via CDN** for all styling. This approach provides:
+
+- **Zero build configuration**: No webpack, PostCSS, or package.json needed
+- **Full utility library**: All Tailwind classes available out of the box
+- **Rapid prototyping**: Add classes directly in HTML and see changes immediately
+- **Consistent design**: Utility classes ensure spacing, colors, and sizing follow a system
+
+<Note>
+The Tailwind CDN is loaded in the `<head>` section of both HTML files:
+
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+```
+
+This approach is perfect for prototypes and small projects, but production apps should use the Tailwind CLI for optimal performance.
+</Note>
+
+## Color Scheme
+
+The project uses a distinct color palette to differentiate between login and registration flows:
+
+### Login Page (Blue)
+
+The login page (login.html:19,26,31,38) uses **blue** as its primary color:
+
+```html
+<!-- Input focus ring -->
+<input class="focus:ring-2 focus:ring-blue-500" />
+
+<!-- Submit button -->
+<button class="bg-blue-500 hover:bg-blue-600">
+  Iniciar Sesión
+</button>
+
+<!-- Navigation link -->
+<a href="registro.html" class="text-blue-500 hover:underline">
+  Registrarse
+</a>
+```
+
+**Blue shades used**:
+- `blue-500`: Primary button background and link text
+- `blue-600`: Button hover state (darker)
+- `blue-500`: Input focus ring color
+
+### Registration Page (Green)
+
+The registration page (registro.html:19,26,33,40,45) uses **green** as its primary color:
+
+```html
+<!-- Input focus ring -->
+<input class="focus:ring-2 focus:ring-green-500" />
+
+<!-- Submit button -->
+<button class="bg-green-500 hover:bg-green-600">
+  Registrarse
+</button>
+```
+
+**Green shades used**:
+- `green-500`: Primary button background
+- `green-600`: Button hover state (darker)
+- `green-500`: Input focus ring color
+
+### Neutral Colors
+
+Both pages share a consistent neutral palette:
+
+- `gray-100`: Body background (light gray)
+- `gray-700`: Label text (dark gray for readability)
+- `gray-600`: Secondary text
+- `white`: Card background
+- `black` (default): Heading text
+
+## Layout & Positioning
+
+### Full-Screen Centering
+
+Both pages use Flexbox to center the form card (login.html:10, registro.html:10):
+
+```html
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+```
+
+**Breakdown**:
+- `bg-gray-100`: Light gray background
+- `flex`: Enable flexbox layout
+- `items-center`: Vertical centering
+- `justify-center`: Horizontal centering
+- `min-h-screen`: Minimum height of 100vh (full viewport height)
+
+This creates a perfect center-aligned layout on any screen size.
+
+### Card Container
+
+The white card uses consistent spacing and visual effects (login.html:11, registro.html:11):
+
+```html
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+```
+
+**Breakdown**:
+- `bg-white`: White background
+- `p-8`: Padding of 2rem (32px) on all sides
+- `rounded-lg`: Large border radius (0.5rem / 8px)
+- `shadow-lg`: Large drop shadow for depth
+- `w-full`: 100% width (up to max-width)
+- `max-w-md`: Maximum width of 28rem (448px)
+
+This ensures the form:
+- Looks like a floating card with depth
+- Is responsive on mobile (full width)
+- Doesn't stretch too wide on desktop (max 448px)
+
+## Form Styling
+
+### Form Spacing
+
+Forms use the `space-y-4` utility (login.html:14, registro.html:14):
+
+```html
+<form class="space-y-4">
+```
+
+This adds `1rem` (16px) vertical spacing between each form field automatically.
+
+### Input Fields
+
+All inputs share a consistent style (login.html:18-19, registro.html:18-19):
+
+```html
+<input 
+  type="email" 
+  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
+```
+
+**Breakdown**:
+- `w-full`: Full width of container
+- `px-4`: Horizontal padding of 1rem (16px)
+- `py-2`: Vertical padding of 0.5rem (8px)
+- `border`: 1px solid border (default gray)
+- `rounded-lg`: Large rounded corners (0.5rem)
+- `focus:outline-none`: Remove default browser outline
+- `focus:ring-2`: Add 2px focus ring
+- `focus:ring-blue-500`: Blue focus ring (or green for registro.html)
+
+### Labels
+
+Labels use consistent text styling (login.html:17, registro.html:17):
+
+```html
+<label class="block text-gray-700 mb-1">
+  Correo electrónico
+</label>
+```
+
+**Breakdown**:
+- `block`: Display as block element (full width)
+- `text-gray-700`: Dark gray text for readability
+- `mb-1`: Bottom margin of 0.25rem (4px)
+
+### Buttons
+
+Submit buttons have distinct colors but share the same structure:
+
+<CodeGroup>
+```html Login Button
+<button 
+  type="submit"
+  class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+>
+  Iniciar Sesión
+</button>
+```
+
+```html Registration Button
+<button 
+  type="submit"
+  class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors"
+>
+  Registrarse
+</button>
+```
+</CodeGroup>
+
+**Breakdown**:
+- `w-full`: Full width button
+- `bg-blue-500` / `bg-green-500`: Colored background
+- `text-white`: White text
+- `py-2`: Vertical padding of 0.5rem
+- `rounded-lg`: Rounded corners
+- `hover:bg-blue-600`: Darker shade on hover
+- `transition-colors`: Smooth color transition (default duration: 150ms)
+
+## Typography
+
+### Headings
+
+Page titles use large, bold text (login.html:12, registro.html:12):
+
+```html
+<h1 class="text-3xl font-bold mb-6 text-center">
+  Iniciar Sesión
+</h1>
+```
+
+**Breakdown**:
+- `text-3xl`: Font size of 1.875rem (30px)
+- `font-bold`: Bold font weight (700)
+- `mb-6`: Bottom margin of 1.5rem (24px)
+- `text-center`: Center-aligned text
+
+### Body Text
+
+Secondary text uses medium gray (registro.html:50):
+
+```html
+<p class="mt-4 text-center text-gray-600">
+  ¿Ya tienes cuenta?
+</p>
+```
+
+**Breakdown**:
+- `mt-4`: Top margin of 1rem
+- `text-center`: Center-aligned
+- `text-gray-600`: Medium gray for secondary text
+
+## Responsive Design
+
+The design is **mobile-first** and responsive by default:
+
+### Mobile (< 768px)
+
+- Card takes full width with `w-full`
+- Comfortable padding with `p-8`
+- Single column layout
+
+### Tablet & Desktop (≥ 768px)
+
+- Card width limited to `max-w-md` (448px)
+- Centered horizontally with `justify-center`
+- Same spacing and layout (no breakpoint-specific classes needed)
+
+<Tip>
+The design doesn't require breakpoint modifiers (`md:`, `lg:`) because the layout is naturally responsive. The `w-full max-w-md` pattern ensures it looks good at any screen size.
+</Tip>
+
+## Interactive States
+
+### Hover Effects
+
+Hover states provide visual feedback:
+
+```html
+<!-- Button hover -->
+<button class="hover:bg-blue-600">Submit</button>
+
+<!-- Link hover -->
+<a class="hover:underline">Register</a>
+```
+
+### Focus States
+
+Inputs show a colored ring when focused:
+
+```html
+<input class="focus:outline-none focus:ring-2 focus:ring-blue-500" />
+```
+
+This improves accessibility and provides clear visual feedback.
+
+## Transitions
+
+Smooth animations enhance user experience (login.html:31, registro.html:45):
+
+```html
+<button class="transition-colors">
+```
+
+The `transition-colors` utility animates background and text color changes with a default duration of 150ms and `ease-in-out` timing.
+
+## Tailwind Utility Patterns
+
+### Spacing Scale
+
+The project uses Tailwind's spacing scale consistently:
+
+| Class | Value | Used For |
+|-------|-------|----------|
+| `mb-1` | 0.25rem (4px) | Label bottom margin |
+| `py-2` | 0.5rem (8px) | Input/button vertical padding |
+| `space-y-4` | 1rem (16px) | Form field spacing |
+| `px-4` | 1rem (16px) | Input horizontal padding |
+| `mt-4` | 1rem (16px) | Section top margin |
+| `mb-6` | 1.5rem (24px) | Heading bottom margin |
+| `p-8` | 2rem (32px) | Card padding |
+
+### Common Patterns
+
+<Accordion title="Full-width form field">
+```html
+<div>
+  <label class="block text-gray-700 mb-1">Label</label>
+  <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+</div>
+```
+</Accordion>
+
+<Accordion title="Primary action button">
+```html
+<button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+  Submit
+</button>
+```
+</Accordion>
+
+<Accordion title="Centered card container">
+```html
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- Content -->
+  </div>
+</body>
+```
+</Accordion>
+
+## Best Practices
+
+### Consistency
+
+Both pages maintain visual consistency:
+- Same card dimensions and styling
+- Consistent input field patterns
+- Shared neutral color palette
+- Only primary colors differ (blue vs. green)
+
+### Accessibility
+
+- Focus rings provide keyboard navigation feedback
+- High contrast text (gray-700 on white)
+- Semantic HTML with proper labels
+- Large click targets (full-width buttons)
+
+### Performance
+
+While the CDN is convenient, it loads the entire Tailwind library (~3MB). For production:
+
+1. Use the Tailwind CLI to build a custom CSS file
+2. Enable PurgeCSS to remove unused classes
+3. Result: ~5-10KB instead of 3MB
+
+See the [customization guide](/guides/customization) for optimization strategies.
+
+## Next Steps
+
+- Learn how to [customize colors and components](/guides/customization)
+- Explore the [development setup](/guides/setup) for different serving options
+- Consider moving to a build process for production use

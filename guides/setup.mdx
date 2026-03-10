@@ -1,0 +1,221 @@
+---
+title: 'Development Setup'
+description: 'Set up your local development environment for the PPS Proyecto JMMR authentication frontend'
+---
+
+## Overview
+
+The PPS Proyecto JMMR frontend is a lightweight HTML/CSS authentication system that requires minimal setup. The project consists of two main pages (`login.html` and `registro.html`) styled with Tailwind CSS via CDN.
+
+## Requirements
+
+The only requirement to run this project is:
+
+- **A modern web browser** (Chrome, Firefox, Safari, or Edge)
+- Optional: A local web server for testing (Python, Node.js, or VS Code Live Server)
+
+<Note>
+No build tools, package managers, or complex dependencies are required. The project uses Tailwind CSS via CDN, making it extremely portable and easy to set up.
+</Note>
+
+## Project Structure
+
+The frontend is organized as follows:
+
+```
+frontend/
+├── login.html       # Login page with email/password fields
+└── registro.html    # Registration page with name, email, phone, and password
+```
+
+Each HTML file is self-contained and includes:
+- Tailwind CSS via CDN (`https://cdn.tailwindcss.com`)
+- Responsive layout utilities
+- Form components with styled inputs and buttons
+- Navigation links between pages
+
+## Getting Started
+
+<Steps>
+  <Step title="Clone or download the project">
+    Navigate to the project directory:
+    
+    ```bash
+    cd ~/workspace/source/frontend/
+    ```
+    
+    You should see `login.html` and `registro.html` in this directory.
+  </Step>
+
+  <Step title="Choose your serving method">
+    You have several options to view the pages:
+
+    ### Option 1: Direct file opening (Quick start)
+    Simply double-click `login.html` or `registro.html` to open in your browser. This works because the project has no external dependencies beyond the Tailwind CDN.
+
+    ### Option 2: Python HTTP Server (Recommended)
+    For a more production-like environment:
+    
+    ```bash
+    # Python 3
+    python3 -m http.server 8000
+    
+    # Python 2
+    python -m SimpleHTTPServer 8000
+    ```
+    
+    Then visit `http://localhost:8000/login.html` in your browser.
+
+    ### Option 3: Node.js HTTP Server
+    If you have Node.js installed:
+    
+    ```bash
+    npx http-server -p 8000
+    ```
+
+    ### Option 4: VS Code Live Server
+    If using VS Code:
+    1. Install the "Live Server" extension
+    2. Right-click on `login.html`
+    3. Select "Open with Live Server"
+  </Step>
+
+  <Step title="Test the pages">
+    Navigate between the pages to ensure everything works:
+    
+    - **Login page**: Should display email and password fields with a blue button
+    - **Registration page**: Should display name, email, phone, and password fields with a green button
+    - **Navigation**: Click the links to move between login and registration pages
+  </Step>
+
+  <Step title="Open browser DevTools">
+    Press `F12` or right-click and select "Inspect" to open developer tools:
+    
+    - **Console**: Check for any JavaScript errors (there shouldn't be any)
+    - **Network**: Verify Tailwind CSS CDN loads successfully
+    - **Elements**: Inspect the HTML structure and Tailwind classes
+  </Step>
+</Steps>
+
+## Development Workflow
+
+### Making Changes
+
+1. **Edit HTML files** in your preferred text editor
+2. **Save the file**
+3. **Refresh the browser** to see changes immediately
+
+<Tip>
+Since Tailwind CSS is loaded via CDN, you have access to all Tailwind utility classes without any build step. Changes are visible instantly after refreshing the page.
+</Tip>
+
+### Hot Reload Options
+
+For automatic browser refresh on file changes:
+
+#### Browser Sync
+```bash
+npx browser-sync start --server --files "*.html"
+```
+
+#### VS Code Live Server
+The Live Server extension automatically reloads when you save files.
+
+## File Structure Explanation
+
+### login.html Structure
+
+The login page (login.html:1-43) contains:
+
+```html
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- Form content -->
+  </div>
+</body>
+```
+
+**Key components**:
+- **Body**: Full-screen flex container with gray background
+- **Card**: White container with padding, rounded corners, and shadow
+- **Form**: Email and password inputs with blue focus rings
+- **Button**: Full-width blue button with hover effects
+
+### registro.html Structure
+
+The registration page (registro.html:1-57) follows the same layout pattern but includes:
+
+- Four input fields (name, email, phone, password)
+- Green color scheme instead of blue
+- Link back to login page
+
+## Common Development Tasks
+
+### Testing Forms
+
+Since the forms use `action="#"` and `method="POST"`, they don't submit to a backend. To test form behavior:
+
+```html
+<!-- Add this inside the <form> tag to see form data -->
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  console.log('Form submitted:', Object.fromEntries(formData));
+});
+</script>
+```
+
+### Testing Responsiveness
+
+1. Open DevTools (`F12`)
+2. Click the device toolbar icon (or press `Ctrl+Shift+M`)
+3. Test different screen sizes:
+   - Mobile: 375px
+   - Tablet: 768px
+   - Desktop: 1024px+
+
+The forms are responsive by default thanks to Tailwind's mobile-first approach.
+
+### Debugging Tailwind Classes
+
+If a style doesn't look right:
+
+1. **Inspect the element** in DevTools
+2. **Check the computed styles** to see which Tailwind classes are applied
+3. **Verify CDN loaded**: Look for `cdn.tailwindcss.com` in the Network tab
+
+<Note>
+The Tailwind CDN includes all utility classes by default. In production, you should use a build process to purge unused CSS for better performance.
+</Note>
+
+## Next Steps
+
+Now that your environment is set up:
+
+- Learn about [styling and Tailwind usage](/guides/styling)
+- Explore [customization options](/guides/customization)
+- Consider integrating with a backend API
+
+## Troubleshooting
+
+### Tailwind Styles Not Loading
+
+**Problem**: Page appears unstyled
+
+**Solution**: Check that you have an internet connection and the CDN URL is accessible:
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+```
+
+### Forms Not Submitting
+
+**Problem**: Clicking submit does nothing
+
+**Solution**: This is expected behavior. The forms use `action="#"` as a placeholder. See the [customization guide](/guides/customization) for backend integration.
+
+### Relative Links Broken
+
+**Problem**: Navigation between pages doesn't work
+
+**Solution**: Ensure both `login.html` and `registro.html` are in the same directory, and you're serving the files (not just opening them individually from different folders).
